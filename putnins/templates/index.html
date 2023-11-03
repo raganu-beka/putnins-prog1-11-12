@@ -1,0 +1,7 @@
+<a href="{{ url_for('new_post') }}">Add new post</a>
+
+<ul>
+    {% for post in posts %}
+    <li><a href="{{ url_for('get_post', post_id=post.id) }}">{{ post['post_text'] }}</a></li>
+    {% endfor %}
+</ul>
