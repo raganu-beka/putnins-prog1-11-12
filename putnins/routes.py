@@ -44,7 +44,12 @@ def register_user():
     form = UserRegisterForm()
 
     if form.validate_on_submit():
-        flask.flash('haha!!!')
+        user = User.get_or_none(username=form.username.data)
+        if user is None:
+            flask.flash('te registrejam')
+            
+        else:
+            flask.flash(f'User {form.username.data} already exists')
 
     return flask.render_template('register_form.html', form=form)
 
