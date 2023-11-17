@@ -1,7 +1,7 @@
 import flask
 
 from putnins import app
-from putnins.models import Post
+from putnins.models import Post, User
 from putnins.forms import UserRegisterForm
 
 
