@@ -42,6 +42,10 @@ def get_post(post_id):
 @app.route('/user/register', methods=['GET', 'POST'])
 def register_user():
     form = UserRegisterForm()
+
+    if form.validate_on_submit():
+        flask.flash('haha!!!')
+
     return flask.render_template('register_form.html', form=form)
 
 

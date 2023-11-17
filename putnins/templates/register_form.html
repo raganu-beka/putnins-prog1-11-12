@@ -1,4 +1,16 @@
+{% with messages = get_flashed_messages() %}
+   {% if messages %}
+      <ul>
+      {% for message in messages %}
+         <li>{{ message }}</li>
+      {% endfor %}
+      </ul>
+   {% endif %}
+{% endwith %}
+
+
 <form action="" method="post">
+    {{ form.csrf_token }}
     {{ form.username.label }} {{ form.username() }} <br>
     {{ form.password.label }} {{ form.password() }} <br>
     {{ form.confirm_password.label }} {{ form.confirm_password() }} <br>
