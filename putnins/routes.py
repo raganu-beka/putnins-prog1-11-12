@@ -2,6 +2,7 @@ import flask
 
 from putnins import app
 from putnins.models import Post
+from putnins.forms import UserRegisterForm
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -36,6 +37,12 @@ def get_post(post_id):
     post = Post.get_by_id(post_id)
     return flask.render_template('post.html',
                                 post=post)
+
+
+@app.route('/user/register')
+def register_user():
+    form = UserRegisterForm()
+    return flask.render_template('register_form.html', form=form)
 
 
 if __name__ == '__main__':
