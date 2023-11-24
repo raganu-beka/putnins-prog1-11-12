@@ -4,6 +4,9 @@ from putnins import app
 from putnins.models import Post, User
 from putnins.forms import UserRegisterForm
 
+from flask_bcrypt import Bcrypt
+
+bcrypt = Bcrypt(app)
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -46,12 +49,22 @@ def register_user():
     if form.validate_on_submit():
         user = User.get_or_none(username=form.username.data)
         if user is None:
-            flask.flash('te registrejam')
+            new_user = User(username=form.username.data,
+                            password=bcrypt.generate_password_hash(form.password.data))
+            new_user.save()
             
+            flask.flash(f'User {form.username.data} is registered now')
+            flask.redirect(flask.url_for('login_user'))
+
         else:
             flask.flash(f'User {form.username.data} already exists')
 
     return flask.render_template('register_form.html', form=form)
+
+
+@app.route('/user/login')
+def login_user():
+    return 'vari logoties iekšā'
 
 
 if __name__ == '__main__':
