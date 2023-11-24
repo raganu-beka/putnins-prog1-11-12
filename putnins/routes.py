@@ -94,6 +94,7 @@ def logout_user():
     return flask.redirect(flask.url_for('index'))
 
 
-if __name__ == '__main__':
-    Post.create_table(fail_silently=True)
-    app.run(host='0.0.0.0', port=81, debug=True)
+@app.route('/user/<username>')
+def get_user(username):
+    user = User.get_or_none(username=username)
+    return flask.render_template('user.html', user=user)
