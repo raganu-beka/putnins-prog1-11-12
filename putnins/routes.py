@@ -2,7 +2,7 @@ import flask
 
 from putnins import app
 from putnins.models import Post, User
-from putnins.forms import UserRegisterForm
+from putnins.forms import UserRegisterForm, UserLoginForm
 
 from flask_bcrypt import Bcrypt
 
@@ -63,9 +63,34 @@ def register_user():
     return flask.render_template('register_form.html', form=form)
 
 
-@app.route('/user/login')
+@app.route('/user/login', methods=['GET', 'POST'])
 def login_user():
-    return 'vari logoties iekšā'
+    form = UserLoginForm()
+
+    if form.validate_on_submit():
+        user = User.get_or_none(username=form.username.data)
+        if user is not None and bcrypt.check_password_hash(
+            user.password,
+            form.password.data
+        ):
+            flask.session['logged_user'] = user.username
+
+            flask.flash('Logged in!')
+            return flask.redirect(flask.url_for('index'))
+
+        else:
+            flask.flash('Incorrect username or password')
+
+
+    return flask.render_template('login_form.html', form=form)
+
+
+@app.route('/user/logout')
+def logout_user()
+    if flask.session['logged_user']:
+        flask.session.pop('logged_user')
+
+    return flask.redirect(flask.url_for('index'))
 
 
 if __name__ == '__main__':
