@@ -86,7 +86,7 @@ def login_user():
 
 
 @app.route('/user/logout')
-def logout_user()
+def logout_user():
     if flask.session['logged_user']:
         flask.session.pop('logged_user')
 
