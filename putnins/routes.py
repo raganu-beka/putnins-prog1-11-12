@@ -8,6 +8,7 @@ from flask_bcrypt import Bcrypt
 
 bcrypt = Bcrypt(app)
 
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
 
@@ -54,7 +55,7 @@ def register_user():
             new_user.save()
             
             flask.flash(f'User {form.username.data} is registered now')
-            flask.redirect(flask.url_for('login_user'))
+            return flask.redirect(flask.url_for('login_user'))
 
         else:
             flask.flash(f'User {form.username.data} already exists')
