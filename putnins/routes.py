@@ -23,8 +23,9 @@ def new_post():
     # mēs ierakstam datus serverī
     if flask.request.method == 'POST':
         post_text = flask.request.form.get('post_text')
+        author = User.get(username=flask.session['logged_user'])
 
-        new_post = Post(post_text=post_text)
+        new_post = Post(post_text=post_text, author=author)
         new_post.save()
 
         return flask.render_template('post.html',
