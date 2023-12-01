@@ -1,4 +1,7 @@
 import flask
+import os
+
+from werkzeug.utils import secure_filename
 
 from putnins import app
 from putnins.models import Post, User
@@ -26,6 +29,11 @@ def new_post():
 
         post_text = flask.request.form.get('post_text')
         author = User.get(username=flask.session['logged_user'])
+
+        if 'post_image' in flask.request.files:
+            file = flask.request.files['post_image']
+            filename = secure_filename(file.filename)
+            file.save(os.path.abspath(app.root_path + '/uploads/' + filename))
 
         new_post = Post(post_text=post_text, author=author)
         new_post.save()

@@ -1,3 +1,4 @@
+import os
 import flask
 from flask_peewee.db import Database
 
