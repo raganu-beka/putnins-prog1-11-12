@@ -22,9 +22,9 @@ def new_post():
     
     form = PostForm()
 
-    if form.validate_on_submit():
+    if flask.request.method == 'POST':
 
-        post_text = form.post_text.data
+        post_text = flask.request.form.get('post_text')
         author = User.get(username=flask.session['logged_user'])
 
         new_post = Post(post_text=post_text, author=author)
