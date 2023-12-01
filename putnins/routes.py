@@ -33,9 +33,15 @@ def new_post():
         if 'post_image' in flask.request.files:
             file = flask.request.files['post_image']
             filename = secure_filename(file.filename)
-            file.save(os.path.abspath(app.root_path + '/uploads/' + filename))
+            file_path = os.path.abspath(app.root_path + '/uploads/' + filename)
+            file.save(file_path)
+            new_post = Post(post_text=post_text,
+                            author=author,
+                            image=file_path)
+            
+        else:
+            new_post = Post(post_text=post_text, author=author)
 
-        new_post = Post(post_text=post_text, author=author)
         new_post.save()
 
         return flask.render_template('post.html',
