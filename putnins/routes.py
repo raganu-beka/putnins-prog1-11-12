@@ -2,7 +2,7 @@ import flask
 
 from putnins import app
 from putnins.models import Post, User
-from putnins.forms import UserRegisterForm, UserLoginForm
+from putnins.forms import UserRegisterForm, UserLoginForm, PostForm
 
 from flask_bcrypt import Bcrypt
 
@@ -19,10 +19,12 @@ def index():
 
 @app.route('/post/new', methods=['GET', 'POST'])
 def new_post():
-    # ja metode ir POST mēs aizsūtīsim formas datus
-    # mēs ierakstam datus serverī
-    if flask.request.method == 'POST':
-        post_text = flask.request.form.get('post_text')
+    
+    form = PostForm()
+
+    if form.validate_on_submit():
+
+        post_text = form.post_text.data
         author = User.get(username=flask.session['logged_user'])
 
         new_post = Post(post_text=post_text, author=author)
@@ -31,10 +33,7 @@ def new_post():
         return flask.render_template('post.html',
                                      post=new_post)
 
-    # ja metode ir GET mēs dabūsim form
-    # nolasīsim datus no servera
-    elif flask.request.method == 'GET':
-        return flask.render_template('post_form.html')
+    return flask.render_template('post_form.html', form=form)
     
 
 @app.route('/post/<int:post_id>')
