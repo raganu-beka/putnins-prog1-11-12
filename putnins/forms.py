@@ -1,7 +1,15 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField
-from wtforms.validators import Length, EqualTo, DataRequired
-
+from flask_wtf.file import FileAllowed, FileField
+from wtforms import (
+    StringField,
+    PasswordField,
+    TextAreaField,
+)
+from wtforms.validators import (
+    Length,
+    EqualTo, 
+    DataRequired,
+)
 
 class UserRegisterForm(FlaskForm):
     username = StringField('Username',
@@ -23,3 +31,11 @@ class UserLoginForm(FlaskForm):
     password = PasswordField('Password',
                            validators=[Length(min=8, max=24),
                                        DataRequired()])
+
+
+class PostForm(FlaskForm):
+    post_text = TextAreaField('Post text',
+                              validators=[Length(min=1, max=560),
+                                          DataRequired()])
+    post_image = FileField('Image',
+                           validators=[FileAllowed(['jpg', 'png'])])
