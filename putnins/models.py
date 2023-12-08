@@ -13,3 +13,9 @@ class Post(db.Model):
     created_at = peewee.DateTimeField(default=datetime.datetime.now)
     author = peewee.ForeignKeyField(User, related_name='posts')
     image = peewee.TextField()
+
+
+class Comment(db.Model):
+    comment_text = peewee.TextField()
+    author = peewee.ForeignKeyField(User, related_name='comments')
+    post = peewee.ForeignKeyField(Post, related_name='comments')
