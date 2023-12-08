@@ -39,3 +39,9 @@ class PostForm(FlaskForm):
                                           DataRequired()])
     post_image = FileField('Image',
                            validators=[FileAllowed(['jpg', 'png'])])
+    
+
+class CommentForm(FlaskForm):
+    comment_text = TextAreaField('Comment text',
+                              validators=[Length(min=1, max=560),
+                                          DataRequired()])

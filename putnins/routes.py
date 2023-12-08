@@ -5,7 +5,7 @@ from werkzeug.utils import secure_filename
 
 from putnins import app
 from putnins.models import Post, User
-from putnins.forms import UserRegisterForm, UserLoginForm, PostForm
+from putnins.forms import UserRegisterForm, UserLoginForm, PostForm, CommentForm
 
 from flask_bcrypt import Bcrypt
 
@@ -111,3 +111,9 @@ def logout_user():
 def get_user(username):
     user = User.get_or_none(username=username)
     return flask.render_template('user.html', user=user)
+
+
+@app.route('/post/<int:post_id>/comment')
+def add_comment(post_id):
+    form = CommentForm()
+    return flask.render_template('comment_form.html', form=form)
