@@ -1,5 +1,5 @@
 <form action="" method="post">
-    {{ csrf_token }}
+    {{ form.csrf_token }}
     {{ form.comment_text.label }} {{ form.comment_text() }} <br>
     <input type="submit">
 </form>

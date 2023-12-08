@@ -4,7 +4,7 @@ import os
 from werkzeug.utils import secure_filename
 
 from putnins import app
-from putnins.models import Post, User
+from putnins.models import Post, User, Comment
 from putnins.forms import UserRegisterForm, UserLoginForm, PostForm, CommentForm
 
 from flask_bcrypt import Bcrypt
@@ -113,7 +113,19 @@ def get_user(username):
     return flask.render_template('user.html', user=user)
 
 
-@app.route('/post/<int:post_id>/comment')
+@app.route('/post/<int:post_id>/comment', methods=['GET', 'POST'])
 def add_comment(post_id):
     form = CommentForm()
+
+    if form.validate_on_submit():
+        post = Post.get_by_id(post_id)
+        user = User.get(username=flask.session['logged_user'])
+
+        comment = Comment(comment_text=form.comment_text.data,
+                          post=post,
+                          author=user)
+        comment.save()
+
+        return flask.redirect(flask.url_for('get_post', post_id=post_id))
+
     return flask.render_template('comment_form.html', form=form)
