@@ -5,8 +5,8 @@
 <h3>{{ post['post_text'] }}</h3>
 <img src="{{ url_for('static', filename=post.image) }}" alt="">
 
-<ol>
+<ul>
     {% for comment in post.comments %}
         <li>{{ comment.author.username }}: {{ comment.comment_text }}</li>
     {% endfor %}
-</ol>
+</ul>
