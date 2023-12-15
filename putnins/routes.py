@@ -25,6 +25,7 @@ def new_post():
     
     form = PostForm()
 
+
     if flask.request.method == 'POST':
 
         post_text = flask.request.form.get('post_text')
@@ -53,8 +54,11 @@ def new_post():
 @app.route('/post/<int:post_id>')
 def get_post(post_id):
     post = Post.get_by_id(post_id)
+    form = CommentForm()
+
     return flask.render_template('post.html',
-                                post=post)
+                                post=post,
+                                form=form)
 
 
 @app.route('/user/register', methods=['GET', 'POST'])
@@ -113,7 +117,7 @@ def get_user(username):
     return flask.render_template('user.html', user=user)
 
 
-@app.route('/post/<int:post_id>/comment', methods=['GET', 'POST'])
+@app.route('/post/<int:post_id>/comment', methods=['POST'])
 def add_comment(post_id):
     form = CommentForm()
 
@@ -127,8 +131,6 @@ def add_comment(post_id):
         comment.save()
 
         return flask.redirect(flask.url_for('get_post', post_id=post_id))
-
-    return flask.render_template('comment_form.html', form=form)
 
 
 @app.route('/post/<int:post_id>/like')

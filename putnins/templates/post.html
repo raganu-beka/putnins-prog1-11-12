@@ -6,6 +6,13 @@
 <img src="{{ url_for('static', filename=post.image) }}" alt=""><br>
 <a href="{{ url_for('like', post_id=post.id)}}">Likes: {{ post.likes.count() }}</a>
 
+<form action="{{ url_for('add_comment', post_id=post.id) }}" method="post">
+    {{ form.csrf_token }}
+    <p>Add your comment!</p>
+    {{ form.comment_text() }} <br>
+    <input type="submit">
+</form>
+
 <ul>
     {% for comment in post.comments %}
         <li>{{ comment.author.username }}: {{ comment.comment_text }}</li>
