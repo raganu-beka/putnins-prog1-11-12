@@ -19,3 +19,8 @@ class Comment(db.Model):
     comment_text = peewee.TextField()
     author = peewee.ForeignKeyField(User, related_name='comments')
     post = peewee.ForeignKeyField(Post, related_name='comments')
+
+
+class Like(db.Model):
+    user = peewee.ForeignKeyField(User, related_name='likes')
+    post = peewee.ForeignKeyField(Post, related_name='likes')

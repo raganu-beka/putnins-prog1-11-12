@@ -4,7 +4,7 @@ import os
 from werkzeug.utils import secure_filename
 
 from putnins import app
-from putnins.models import Post, User, Comment
+from putnins.models import Post, User, Comment, Like
 from putnins.forms import UserRegisterForm, UserLoginForm, PostForm, CommentForm
 
 from flask_bcrypt import Bcrypt
@@ -129,3 +129,19 @@ def add_comment(post_id):
         return flask.redirect(flask.url_for('get_post', post_id=post_id))
 
     return flask.render_template('comment_form.html', form=form)
+
+
+@app.route('/post/<int:post_id>/like')
+def like(post_id):
+    post = Post.get_by_id(post_id)
+    user = User.get(username=flask.session['logged_user'])
+
+    like = Like.get_or_none(user=user, post=post)
+    if like is None:
+        like = Like(user=user, post=post)
+        like.save()
+
+    else:
+        like.delete_instance()
+
+    return flask.redirect(flask.url_for('post', post_id=post_id))
