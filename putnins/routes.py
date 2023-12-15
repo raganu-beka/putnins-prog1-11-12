@@ -144,4 +144,4 @@ def like(post_id):
     else:
         like.delete_instance()
 
-    return flask.redirect(flask.url_for('post', post_id=post_id))
+    return flask.redirect(flask.url_for('get_post', post_id=post_id))
