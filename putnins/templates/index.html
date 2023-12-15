@@ -19,7 +19,7 @@
     {% for post in posts %}
    <li>
       <a href="{{ url_for('get_post', post_id=post.id) }}">{{ post.author.username }}: {{ post['post_text'] }}</a><br>
-      <a href="{{ url_for('like', post_id=post.id)}}">Likes: {{ post.likes.count }}</a>
+      <a href="{{ url_for('like', post_id=post.id)}}">Likes: {{ post.likes.count() }}</a>
    </li>
     {% endfor %}
 </ul>
