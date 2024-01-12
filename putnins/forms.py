@@ -4,6 +4,7 @@ from wtforms import (
     StringField,
     PasswordField,
     TextAreaField,
+    SubmitField,
 )
 from wtforms.validators import (
     Length,
@@ -39,6 +40,7 @@ class PostForm(FlaskForm):
                                           DataRequired()])
     post_image = FileField('Image',
                            validators=[FileAllowed(['jpg', 'png'])])
+    submit = SubmitField('Post')
     
 
 class CommentForm(FlaskForm):
