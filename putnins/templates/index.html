@@ -1,13 +1,19 @@
 {% extends "layout.html" %}
 {% block content %}
 
-<ul>
-    {% for post in posts %}
-   <li>
-      <a href="{{ url_for('get_post', post_id=post.id) }}">{{ post.author.username }}: {{ post['post_text'] }}</a><br>
-      <a href="{{ url_for('like', post_id=post.id)}}">Likes: {{ post.likes.count() }}</a>
-   </li>
-    {% endfor %}
-</ul>
+{% for post in posts %}
+   <article class="media content-section">
+      <div class="media-body">
+         <div class="article-metadata">
+            <a class="mr-2" href="{{ url_for('get_user', username=post.author.username) }}">{{ post.author.username }}</a>
+            <small class="text-muted">{{ post.created_at.strftime("%B %e, %Y") }}</small>
+         </div>
+         <p class="article-content">
+            {{ post.post_text }}
+         </p>
+         <a class="text-muted" href="{{ url_for('like', post_id = post.id) }}">Likes: {{ post.likes|length or 0 }}</a>
+      </div>
+   </article>
+{% endfor %}
 
 {% endblock %}
