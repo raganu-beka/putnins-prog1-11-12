@@ -1,3 +1,6 @@
+{% extends "layout.html" %}
+{% block content %}
+
 <form action="" method="post" enctype="multipart/form-data">
     {{ csrf_token}}
     <p>Tell us your thoughts</p>
@@ -5,3 +8,5 @@
     Add image: {{ form.post_image() }} <br>
     <input type="submit">
 </form>
+
+{% endblock %}

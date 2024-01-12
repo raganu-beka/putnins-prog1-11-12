@@ -1,3 +1,6 @@
+{% extends "layout.html" %}
+{% block content %}
+
 <h1>{{ user.username }}</h1>
 
 <ul>
@@ -5,3 +8,5 @@
     <li><a href="{{ url_for('get_post', post_id=post.id) }}">{{ post['post_text'] }}</a></li>
     {% endfor %}
 </ul>
+
+{% endblock %}

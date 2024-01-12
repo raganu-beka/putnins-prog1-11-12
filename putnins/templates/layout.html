@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css')}}">
+
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Lobster" />
+
+    <title>Putniņš</title>
+</head>
+<body>
+    <header class="site-header">
+       <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+        <div class="container">
+            <a class="navbar-brand mr-4" href="/" style="font-family: Lobster; font-size: 30px;">Y</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarToggle">
+                <div class="navbar-nav mr-auto"></div>
+                <div class="navbar-nav">
+                    {% if session['logged_user'] %}
+                        <a class="btn btn-secondary" style="background-color: #5f788a; border: 0px solid #5f788a;" href="{{ url_for('new_post') }}">New post</a>
+                        <a class="btn btn-secondary" style="background-color: #5f788a; border: 0px solid #5f788a;" href="{{ url_for('logout_user') }}">Log out</a>
+                    {% else %}
+                        <a class="btn btn-secondary" style="background-color: #5f788a; border: 0px solid #5f788a;" href="{{ url_for('login_user') }}">Log in</a>
+                    {% endif %}
+                </div>
+            </div>  
+        </div>
+       </nav> 
+    </header>
+
+    <main role="main" class="container">
+        <div class="row">
+            <div class="col-md-12">
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>

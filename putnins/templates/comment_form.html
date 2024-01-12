@@ -1,5 +1,10 @@
+{% extends "layout.html" %}
+{% block content %}
+
 <form action="" method="post">
     {{ form.csrf_token }}
     {{ form.comment_text.label }} {{ form.comment_text() }} <br>
     <input type="submit">
 </form>
+
+{% endblock %}

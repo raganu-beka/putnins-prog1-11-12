@@ -1,19 +1,5 @@
-{% if session['logged_user'] %}
-<a href="{{ url_for('new_post') }}">Add new post</a>
-<a href="{{ url_for('logout_user') }}">Log out</a>
-{% else %}
-<a href="{{ url_for('login_user') }}">Log in</a>
-{% endif %}
-
-{% with messages = get_flashed_messages() %}
-   {% if messages %}
-      <ul>
-      {% for message in messages %}
-         <li>{{ message }}</li>
-      {% endfor %}
-      </ul>
-   {% endif %}
-{% endwith %}
+{% extends "layout.html" %}
+{% block content %}
 
 <ul>
     {% for post in posts %}
@@ -23,3 +9,5 @@
    </li>
     {% endfor %}
 </ul>
+
+{% endblock %}

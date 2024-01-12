@@ -1,12 +1,5 @@
-{% with messages = get_flashed_messages() %}
-   {% if messages %}
-      <ul>
-      {% for message in messages %}
-         <li>{{ message }}</li>
-      {% endfor %}
-      </ul>
-   {% endif %}
-{% endwith %}
+{% extends "layout.html" %}
+{% block content %}
 
 
 <form action="" method="post">
@@ -18,3 +11,5 @@
 
 <p>Dont have an account?</p>
 <a href="{{ url_for('register_user') }}">Register</a>
+
+{% endblock %}
